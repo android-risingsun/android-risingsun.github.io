@@ -15,7 +15,7 @@
 <meta property="og:description" content="简介作为Android开发者，如果你不想开源你的应用，那么在应用发布前，就需要对代码进行混淆处理，从而让我们代码即使被反编译，也难以阅读。混淆概念虽然容易，但很多初学者也只是网上搜一些成型的混淆规则粘贴进自己项目，并没有对混淆有个深入的理解。本篇文章的目的就是让一个初学者在看完后，能在不进行任何帮助的情况下，独立写出适合自己代码的混淆规则。
 说在前面
 本文你可以点击喜欢 工作使用时随时翻阅这里有你">
-<meta property="og:updated_time" content="2017-01-18T03:08:16.000Z">
+<meta property="og:updated_time" content="2017-01-18T03:12:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android混淆入门到精通">
 <meta name="twitter:description" content="简介作为Android开发者，如果你不想开源你的应用，那么在应用发布前，就需要对代码进行混淆处理，从而让我们代码即使被反编译，也难以阅读。混淆概念虽然容易，但很多初学者也只是网上搜一些成型的混淆规则粘贴进自己项目，并没有对混淆有个深入的理解。本篇文章的目的就是让一个初学者在看完后，能在不进行任何帮助的情况下，独立写出适合自己代码的混淆规则。
@@ -58,9 +58,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -95,15 +95,10 @@
 <h3 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h3><blockquote>
 <p>本文你可以点击喜欢 工作使用时随时翻阅这里有你代码混淆是所需要知道的一切</p>
 </blockquote>
-<p>这里我们直接用Android Studio来说明如何进行混淆，Android Studio自身集成Java语言的ProGuard作为压缩，优化和混淆工具，配合Gradle构建工具使用很简单，只需要在工程应用目录的gradle文件中设置minifyEnabled为true即可。然后我们就可以到proguard-rules.pro文件中加入我们的混淆规则了。</p>
-<blockquote>
-<p>…<br>buildTypes {<br>release {<br>minifyEnabled true<br>proguardFiles getDefaultProguardFile(‘proguard-android.txt’), ‘proguard-rules.pro’<br>}<br>}<br>}</p>
-</blockquote>
+<p>这里我们直接用Android Studio来说明如何进行混淆，Android Studio自身集成Java语言的ProGuard作为压缩，优化和混淆工具，配合Gradle构建工具使用很简单，只需要在工程应用目录的gradle文件中设置minifyEnabled为true即可。然后我们就可以到proguard-rules.pro文件中加入我们的混淆规则了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">buildTypes &#123;</div><div class="line">release &#123;</div><div class="line">minifyEnabled <span class="literal">true</span></div><div class="line">proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>以上示例代码表示对release版本就行混淆处理。下面我们先来简介下ProGuard的三大作用，并简要说明下它们常用的命令。</p>
 <h3 id="ProGuard作用"><a href="#ProGuard作用" class="headerlink" title="ProGuard作用"></a>ProGuard作用</h3><p>压缩（Shrinking）：默认开启，用以减小应用体积，移除未被使用的类和成员，并且会在优化动作执行之后再次执行（因为优化后可能会再次暴露一些未被使用的类和成员）。</p>
-<blockquote>
-<p>-dontshrink 关闭压缩</p>
-</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-dontshrink 关闭压缩</div></pre></td></tr></table></figure>
 <p>优化（Optimization）：默认开启，在字节码级别执行优化，让应用运行的更快。</p>
 <blockquote>
 <p>-dontoptimize  关闭优化<br>-optimizationpasses n 表示proguard对代码进行迭代优化的次数，Android一般为5</p>
@@ -196,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/17/Android混淆入门到精通/" data-id="ciy2ddsut0000r8s62ckplh1d" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2017/01/17/Android混淆入门到精通/" data-id="ciy2di17b0001t7s6mbac9l4i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,11 +200,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="/2017/01/17/开启新篇章/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ancien</strong>
-      <div class="article-nav-title">新篇章</div>
+    <a href="/2017/01/17/开启新篇章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          新篇章
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -240,16 +239,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/01/17/Android混淆入门到精通/">Android混淆入门到精通</a>
+            <a href="/2017/01/17/开启新篇章/">新篇章</a>
           </li>
         
           <li>
-            <a href="/2017/01/17/开启新篇章/">新篇章</a>
+            <a href="/2017/01/17/Android混淆入门到精通/">Android混淆入门到精通</a>
           </li>
         
       </ul>
@@ -265,7 +264,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
