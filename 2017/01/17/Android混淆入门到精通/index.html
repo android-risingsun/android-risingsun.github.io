@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>Android混淆入门到精通 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="###简介
 作为Android开发者，如果你不想开源你的应用，那么在应用发布前，就需要对代码进行混淆处理，从而让我们代码即使被反编译，也难以阅读。混淆概念虽然容易，但很多初学者也只是网上搜一些成型的混淆规则粘贴进自己项目，并没有对混淆有个深入的理解。本篇文章的目的就是让一个初学者在看完后，能在不进行任何帮助的情况下，独立写出适合自己代码的混淆规则。
@@ -11,7 +11,7 @@
 
 本文你可以点击喜欢 工作使用时">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Android混淆入门到精通">
 <meta property="og:url" content="http://yoursite.com/2017/01/17/Android混淆入门到精通/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="###简介
@@ -19,9 +19,9 @@
 ###说在前面
 
 本文你可以点击喜欢 工作使用时">
-<meta property="og:updated_time" content="2017-01-18T02:27:14.000Z">
+<meta property="og:updated_time" content="2017-01-18T02:33:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Android混淆入门到精通">
 <meta name="twitter:description" content="###简介
 作为Android开发者，如果你不想开源你的应用，那么在应用发布前，就需要对代码进行混淆处理，从而让我们代码即使被反编译，也难以阅读。混淆概念虽然容易，但很多初学者也只是网上搜一些成型的混淆规则粘贴进自己项目，并没有对混淆有个深入的理解。本篇文章的目的就是让一个初学者在看完后，能在不进行任何帮助的情况下，独立写出适合自己代码的混淆规则。
 ###说在前面
@@ -66,7 +66,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -85,6 +85,16 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android混淆入门到精通
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <p>###简介</p>
@@ -95,40 +105,9 @@
 </blockquote>
 <p>这里我们直接用Android Studio来说明如何进行混淆，Android Studio自身集成Java语言的ProGuard作为压缩，优化和混淆工具，配合Gradle构建工具使用很简单，只需要在工程应用目录的gradle文件中设置minifyEnabled为true即可。然后我们就可以到proguard-rules.pro文件中加入我们的混淆规则了。</p>
 <blockquote>
-<figure class="highlight plain"><figcaption><span>&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">buildTypes &#123;</div><div class="line">release &#123;</div><div class="line">minifyEnabled true</div><div class="line">proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;...</div><div class="line">&gt;buildTypes &#123;</div><div class="line">&gt;release &#123;</div><div class="line">&gt;minifyEnabled true</div><div class="line">&gt;proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">&gt;&#125;</div><div class="line">&gt;&#125;</div><div class="line">&gt;&#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p>以上示例代码表示对release版本就行混淆处理。下面我们先来简介下ProGuard的三大作用，并简要说明下它们常用的命令。</p>
-<p>###ProGuard作用</p>
-<p>压缩（Shrinking）：默认开启，用以减小应用体积，移除未被使用的类和成员，并且会在优化动作执行之后再次执行（因为优化后可能会再次暴露一些未被使用的类和成员）。</p>
-<blockquote>
-<p>-dontshrink 关闭压缩</p>
-</blockquote>
-<p>优化（Optimization）：默认开启，在字节码级别执行优化，让应用运行的更快。</p>
-<blockquote>
-<p>-dontoptimize  关闭优化<br>-optimizationpasses n 表示proguard对代码进行迭代优化的次数，Android一般为5</p>
-</blockquote>
-<p>混淆（Obfuscation）：默认开启，增大反编译难度，类和类成员会被随机命名，除非用keep保护。</p>
-<blockquote>
-<p>-dontobfuscate 关闭混淆</p>
-</blockquote>
-<p>混淆后默认会在工程目录app/build/outputs/mapping/release下生成一个mapping.txt文件，这就是混淆规则，我们可以根据这个文件把混淆后的代码反推回源本的代码，所以这个文件很重要，注意保护好。原则上，代码混淆后越乱越无规律越好，但有些地方我们是要避免混淆的，否则程序运行就会出错，所以就有了下面我们要教大家的，如何让自己的部分代码避免混淆从而防止出错。</p>
-<p>###基本规则</p>
-<p>先看如下两个比较常用的命令，很多童鞋可能会比较迷惑以下两者的区别。</p>
-<blockquote>
-<p>-keep class cn.hadcn.test.<em>*<br>-keep class cn.hadcn.test.</em></p>
-</blockquote>
-<p>一颗星表示只是保持该包下的类名，而子包下的类名还是会被混淆；两颗星表示把本包和所含子包下的类名都保持；用以上方法保持类后，你会发现类名虽然未混淆，但里面的具体方法和变量命名还是变了，这时如果既想保持类名，又想保持里面的内容不被混淆，我们就需要以下方法了</p>
-<blockquote>
-<p>-keep class cn.hadcn.test.<em> {</em>;}</p>
-</blockquote>
-<p>在此基础上，我们也可以使用Java的基本规则来保护特定类不被混淆，比如我们可以用extend，implement等这些Java规则。如下例子就避免所有继承Activity的类被混淆</p>
-<blockquote>
-<p>-keep public class * extends android.app.Activity</p>
-</blockquote>
-<p>如果我们要保留一个类中的内部类不被混淆则需要用$符号，如下例子表示保持ScriptFragment内部类JavaScriptInterface中的所有public内容不被混淆。</p>
-<blockquote>
-<figure class="highlight plain"><figcaption><span>class cc.ninty.chat.ui.fragment.ScriptFragment$JavaScriptInterface &#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public *;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">以上示例代码表示对release版本就行混淆处理。下面我们先来简介下ProGuard的三大作用，并简要说明下它们常用的命令。</div><div class="line"></div><div class="line">###ProGuard作用</div><div class="line"></div><div class="line">压缩（Shrinking）：默认开启，用以减小应用体积，移除未被使用的类和成员，并且会在优化动作执行之后再次执行（因为优化后可能会再次暴露一些未被使用的类和成员）。</div><div class="line"></div><div class="line">&gt;-dontshrink 关闭压缩</div><div class="line"></div><div class="line">优化（Optimization）：默认开启，在字节码级别执行优化，让应用运行的更快。</div><div class="line"></div><div class="line">&gt;-dontoptimize  关闭优化</div><div class="line">-optimizationpasses n 表示proguard对代码进行迭代优化的次数，Android一般为5</div><div class="line"></div><div class="line">混淆（Obfuscation）：默认开启，增大反编译难度，类和类成员会被随机命名，除非用keep保护。</div><div class="line"></div><div class="line">&gt;-dontobfuscate 关闭混淆</div><div class="line"></div><div class="line">混淆后默认会在工程目录app/build/outputs/mapping/release下生成一个mapping.txt文件，这就是混淆规则，我们可以根据这个文件把混淆后的代码反推回源本的代码，所以这个文件很重要，注意保护好。原则上，代码混淆后越乱越无规律越好，但有些地方我们是要避免混淆的，否则程序运行就会出错，所以就有了下面我们要教大家的，如何让自己的部分代码避免混淆从而防止出错。</div><div class="line"></div><div class="line">###基本规则</div><div class="line"></div><div class="line">先看如下两个比较常用的命令，很多童鞋可能会比较迷惑以下两者的区别。</div><div class="line"></div><div class="line">&gt;-keep class cn.hadcn.test.**</div><div class="line">-keep class cn.hadcn.test.*</div><div class="line"></div><div class="line">一颗星表示只是保持该包下的类名，而子包下的类名还是会被混淆；两颗星表示把本包和所含子包下的类名都保持；用以上方法保持类后，你会发现类名虽然未混淆，但里面的具体方法和变量命名还是变了，这时如果既想保持类名，又想保持里面的内容不被混淆，我们就需要以下方法了</div><div class="line"></div><div class="line">&gt;-keep class cn.hadcn.test.* &#123;*;&#125;</div><div class="line"></div><div class="line">在此基础上，我们也可以使用Java的基本规则来保护特定类不被混淆，比如我们可以用extend，implement等这些Java规则。如下例子就避免所有继承Activity的类被混淆</div><div class="line"></div><div class="line">&gt;-keep public class * extends android.app.Activity</div><div class="line"></div><div class="line">如果我们要保留一个类中的内部类不被混淆则需要用$符号，如下例子表示保持ScriptFragment内部类JavaScriptInterface中的所有public内容不被混淆。</div><div class="line"></div><div class="line">&gt;```-keepclassmembers class cc.ninty.chat.ui.fragment.ScriptFragment$JavaScriptInterface &#123;</div><div class="line">public *;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>再者，如果一个类中你不希望保持全部内容不被混淆，而只是希望保护类下的特定内容，就可以使用</p>
 <blockquote>
 <p><init>;     //匹配所有构造器</init></p>
@@ -191,12 +170,12 @@
 </blockquote>
 <p>写在最后</p>
 <p>发布一款应用除了设minifyEnabled为ture，你也应该设置zipAlignEnabled为true，像Google Play强制要求开发者上传的应用必须是经过zipAlign的，zipAlign可以让安装包中的资源按4字节对齐，这样可以减少应用在运行时的内存消耗。</p>
-<p>转自：Android开发中文站 » Android 混淆从入门到精通<br>声明：仅供自己工作翻阅</p>
+<p>声明：仅供自己工作翻阅</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/17/Android混淆入门到精通/" data-id="ciy2by99i0000mhs6kkj1xd3f" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/01/17/Android混淆入门到精通/" data-id="ciy2c3o750001oms61ighp9f2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,11 +184,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="/2017/01/17/开启新篇章/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ouder</strong>
-      <div class="article-nav-title">新篇章</div>
+    <a href="/2017/01/17/开启新篇章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          新篇章
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -230,7 +213,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
     </div>
@@ -240,16 +223,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/01/17/Android混淆入门到精通/">(no title)</a>
+            <a href="/2017/01/17/开启新篇章/">新篇章</a>
           </li>
         
           <li>
-            <a href="/2017/01/17/开启新篇章/">新篇章</a>
+            <a href="/2017/01/17/Android混淆入门到精通/">Android混淆入门到精通</a>
           </li>
         
       </ul>
