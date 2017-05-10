@@ -8,29 +8,30 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>RisingSun</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="GitLab问题解决文档-李晓阳 2017.5.10
-一、 gitlab安装01环境安装Install and configure the necessary dependencies
-12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable sshdsudo">
+  <meta name="description" content="GitLab问题解决文档&amp;copy;李晓阳
+一、 gitlab安装01. 环境安装Install and configure the necessary dependencies
+12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable sshdsudo sys">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RisingSun">
 <meta property="og:url" content="http://yoursite.com/2017/01/17/GitLab部署指南/index.html">
 <meta property="og:site_name" content="RisingSun">
-<meta property="og:description" content="GitLab问题解决文档-李晓阳 2017.5.10
-一、 gitlab安装01环境安装Install and configure the necessary dependencies
-12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable sshdsudo">
+<meta property="og:description" content="GitLab问题解决文档&amp;copy;李晓阳
+一、 gitlab安装01. 环境安装Install and configure the necessary dependencies
+12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable sshdsudo sys">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/blogimage01.jpg">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/01unicorn.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/02port.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/03gitlabyml.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/04nginx.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/05gitlabshell.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/06gitlabshellconfig.png">
-<meta property="og:updated_time" content="2017-05-10T07:10:49.000Z">
+<meta property="og:updated_time" content="2017-05-10T07:16:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RisingSun">
-<meta name="twitter:description" content="GitLab问题解决文档-李晓阳 2017.5.10
-一、 gitlab安装01环境安装Install and configure the necessary dependencies
-12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable sshdsudo">
-<meta name="twitter:image" content="http://ol4zbr02e.bkt.clouddn.com/01unicorn.png">
+<meta name="twitter:description" content="GitLab问题解决文档&amp;copy;李晓阳
+一、 gitlab安装01. 环境安装Install and configure the necessary dependencies
+12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable sshdsudo sys">
+<meta name="twitter:image" content="http://ol4zbr02e.bkt.clouddn.com/blogimage01.jpg">
   
     <link rel="alternative" href="/atom.xml" title="RisingSun" type="application/atom+xml">
   
@@ -173,18 +174,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="GitLab问题解决文档"><a href="#GitLab问题解决文档" class="headerlink" title="GitLab问题解决文档"></a>GitLab问题解决文档</h1><pre><code>-李晓阳 2017.5.10
-</code></pre><h3 id="一、-gitlab安装"><a href="#一、-gitlab安装" class="headerlink" title="一、 gitlab安装"></a>一、 gitlab安装</h3><h4 id="01环境安装"><a href="#01环境安装" class="headerlink" title="01环境安装"></a>01环境安装</h4><p>Install and configure the necessary dependencies</p>
+        <h1 id="GitLab问题解决文档"><a href="#GitLab问题解决文档" class="headerlink" title="GitLab问题解决文档"></a>GitLab问题解决文档</h1><p>&copy;<a href="https://android-risingsun.github.io" target="_blank" rel="external">李晓阳</a><br><img src="http://ol4zbr02e.bkt.clouddn.com/blogimage01.jpg" alt="banner"></p>
+<h3 id="一、-gitlab安装"><a href="#一、-gitlab安装" class="headerlink" title="一、 gitlab安装"></a>一、 gitlab安装</h3><h4 id="01-环境安装"><a href="#01-环境安装" class="headerlink" title="01. 环境安装"></a>01. 环境安装</h4><p>Install and configure the necessary dependencies</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo yum install curl policycoreutils openssh-server openssh-clients</div><div class="line">sudo systemctl enable sshd</div><div class="line">sudo systemctl start sshd</div><div class="line">sudo yum install postfix</div><div class="line">sudo systemctl enable postfix</div><div class="line">sudo systemctl start postfix</div><div class="line">sudo firewall-cmd --permanent --add-service=http</div><div class="line">sudo systemctl reload firewalld</div></pre></td></tr></table></figure>
-<h4 id="02-yum安装"><a href="#02-yum安装" class="headerlink" title="02 yum安装"></a>02 yum安装</h4><p>Add the GitLab package server and install the package</p>
+<h4 id="02-yum安装"><a href="#02-yum安装" class="headerlink" title="02. yum安装"></a>02. yum安装</h4><p>Add the GitLab package server and install the package</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash</div><div class="line">sudo yum install gitlab-ce</div></pre></td></tr></table></figure>
-<h4 id="03-gitlab配置启动"><a href="#03-gitlab配置启动" class="headerlink" title="03 gitlab配置启动"></a>03 gitlab配置启动</h4><p>Configure and start GitLab </p>
+<h4 id="03-gitlab配置启动"><a href="#03-gitlab配置启动" class="headerlink" title="03. gitlab配置启动"></a>03. gitlab配置启动</h4><p>Configure and start GitLab </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gitlab-ctl reconfigure</div></pre></td></tr></table></figure>
-<h3 id="二、-80端口冲突问题"><a href="#二、-80端口冲突问题" class="headerlink" title="二、 80端口冲突问题"></a>二、 80端口冲突问题</h3><blockquote>
+<h3 id="二、80端口冲突问题"><a href="#二、80端口冲突问题" class="headerlink" title="二、80端口冲突问题"></a>二、80端口冲突问题</h3><blockquote>
 <p>一般服务器80端口是不不对外开放的，或者只有部分端口对外开发，这时候在使用gitlab安装后就会出现无法访问的问题，这是因为可能80已经被占用这时需要修改gitlab和nginx的端口，直接上教程</p>
 </blockquote>
 <p>修改两部分 一部分是gitlab总的控制文件，一部分是nginx监听端口的修改。</p>
-<h4 id="01-unicorn-rb修改"><a href="#01-unicorn-rb修改" class="headerlink" title="01.unicorn.rb修改"></a>01.unicorn.rb修改</h4><p><strong>配置文件在 /var/opt/gitlab/gitlab-rails/etc/unicorn.rb。 这个文件用于gitlab监听的地址和端口</strong></p>
+<h4 id="01-unicorn-rb修改"><a href="#01-unicorn-rb修改" class="headerlink" title="01. unicorn.rb修改"></a>01. unicorn.rb修改</h4><p><strong>配置文件在 /var/opt/gitlab/gitlab-rails/etc/unicorn.rb。 这个文件用于gitlab监听的地址和端口</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /var/opt/gitlab/gitlab-rails/etc/unicorn.rb</div></pre></td></tr></table></figure>
 <p>这里将初始被占用的8080端口修改为8082端口</p>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/01unicorn.png" alt="下午12.53.02"></p>
@@ -192,16 +193,16 @@
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/02port.png" alt="下午1.28.22"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml</div></pre></td></tr></table></figure>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/03gitlabyml.png" alt="下午1.20.54"></p>
-<h4 id="03-修改gitlab-nginx"><a href="#03-修改gitlab-nginx" class="headerlink" title="03.修改gitlab nginx"></a>03.修改gitlab nginx</h4><p><strong>将nginx监听端口由80设置为82</strong></p>
+<h4 id="03-修改gitlab-nginx"><a href="#03-修改gitlab-nginx" class="headerlink" title="03. 修改gitlab nginx"></a>03. 修改gitlab nginx</h4><p><strong>将nginx监听端口由80设置为82</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi  /var/opt/gitlab/nginx/conf/gitlab-http.conf</div></pre></td></tr></table></figure>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/04nginx.png" alt="下午1.07.57"></p>
 <h3 id="三、-错误：GitLab-Failed-to-authorize-your-Git-request-inte"><a href="#三、-错误：GitLab-Failed-to-authorize-your-Git-request-inte" class="headerlink" title="三、 错误：GitLab: Failed to authorize your Git request: inte"></a>三、 错误：GitLab: Failed to authorize your Git request: inte</h3><blockquote>
 <p>由于80端口被占用在修改改端口为82之后出现用户无法提交数据问题，自己提交的代码，系统竟然提示无权限进行访问内部api我也很无语啊！还好在外文网站stackworkflow上给出提示，实测完美解决，废话少说上文。</p>
 </blockquote>
 <p>出现这个错误是gitlab-shell配置信息错误引起的</p>
-<h4 id="a-打开目录"><a href="#a-打开目录" class="headerlink" title="a.打开目录"></a>a.打开目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**vi /var/opt/gitlab/gitlab-shell/config.yml**</div></pre></td></tr></table></figure>
+<h4 id="a-打开目录"><a href="#a-打开目录" class="headerlink" title="a. 打开目录"></a>a. 打开目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**vi /var/opt/gitlab/gitlab-shell/config.yml**</div></pre></td></tr></table></figure>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/05gitlabshell.png" alt="上午9.24.39"></p>
-<p>#####b.修改配置文件<br><strong>将默认的80端口修改为82即可</strong></p>
+<p>#####b. 修改配置文件<br><strong>将默认的80端口修改为82即可</strong></p>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/06gitlabshellconfig.png" alt="上午9.22.50"></p>
 <p>以上修改只够对gitlab服务进行重启</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gitlab-ctl restart</div></pre></td></tr></table></figure>
