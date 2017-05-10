@@ -6,17 +6,34 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017/1 | RisingSun</title>
+  <title>RisingSun</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta property="og:type" content="website">
+  <meta name="description" content="GitLab问题解决文档-李晓阳 2017.5.10
+###一、 gitlab安装
+####01环境安装Install and configure the necessary dependencies
+12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable s">
+<meta property="og:type" content="article">
 <meta property="og:title" content="RisingSun">
-<meta property="og:url" content="http://yoursite.com/archives/2017/01/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/01/17/GitLab部署指南/index.html">
 <meta property="og:site_name" content="RisingSun">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="GitLab问题解决文档-李晓阳 2017.5.10
+###一、 gitlab安装
+####01环境安装Install and configure the necessary dependencies
+12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable s">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/01unicorn.png">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/02port.png">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/03gitlabyml.png">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/04nginx.png">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/05gitlabshell.png">
+<meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/06gitlabshellconfig.png">
+<meta property="og:updated_time" content="2017-05-10T06:52:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RisingSun">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:description" content="GitLab问题解决文档-李晓阳 2017.5.10
+###一、 gitlab安装
+####01环境安装Install and configure the necessary dependencies
+12345678sudo yum install curl policycoreutils openssh-server openssh-clientssudo systemctl enable s">
+<meta name="twitter:image" content="http://ol4zbr02e.bkt.clouddn.com/01unicorn.png">
   
     <link rel="alternative" href="/atom.xml" title="RisingSun" type="application/atom+xml">
   
@@ -154,97 +171,167 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-GitLab部署指南" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="GitLab问题解决文档"><a href="#GitLab问题解决文档" class="headerlink" title="GitLab问题解决文档"></a>GitLab问题解决文档</h1><pre><code>-李晓阳 2017.5.10
+</code></pre><p>###一、 gitlab安装</p>
+<p>####01环境安装<br>Install and configure the necessary dependencies</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo yum install curl policycoreutils openssh-server openssh-clients</div><div class="line">sudo systemctl enable sshd</div><div class="line">sudo systemctl start sshd</div><div class="line">sudo yum install postfix</div><div class="line">sudo systemctl enable postfix</div><div class="line">sudo systemctl start postfix</div><div class="line">sudo firewall-cmd --permanent --add-service=http</div><div class="line">sudo systemctl reload firewalld</div></pre></td></tr></table></figure>
+<p>####02 yum安装<br>Add the GitLab package server and install the package</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash</div><div class="line">sudo yum install gitlab-ce</div></pre></td></tr></table></figure>
+<p>####03 gitlab配置启动<br>Configure and start GitLab </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gitlab-ctl reconfigure</div></pre></td></tr></table></figure>
+<p>###二、 80端口冲突问题</p>
+<blockquote>
+<p>一般服务器80端口是不不对外开放的，或者只有部分端口对外开发，这时候在使用gitlab安装后就会出现无法访问的问题，这是因为可能80已经被占用这时需要修改gitlab和nginx的端口，直接上教程</p>
+</blockquote>
+<p>修改两部分 一部分是gitlab总的控制文件，一部分是nginx监听端口的修改。</p>
+<p>####01.unicorn.rb修改</p>
+<p><strong>配置文件在 /var/opt/gitlab/gitlab-rails/etc/unicorn.rb。 这个文件用于gitlab监听的地址和端口</strong></p>
+<p>-# vi /var/opt/gitlab/gitlab-rails/etc/unicorn.rb<br>这里将初始被占用的8080端口修改为8082端口</p>
+<p><img src="http://ol4zbr02e.bkt.clouddn.com/01unicorn.png" alt="下午12.53.02"></p>
+<p>####02.修改gitlab-rails 的 gitlab.yml</p>
+<p><strong>修改这个文件能够是gitlab内部clong地址加上我们修改的端口号82（默认为80）</strong></p>
+<p><img src="http://ol4zbr02e.bkt.clouddn.com/02port.png" alt="下午1.28.22"></p>
+<p>-# vi /opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml<br><img src="http://ol4zbr02e.bkt.clouddn.com/03gitlabyml.png" alt="下午1.20.54"></p>
+<p>####03.修改gitlab nginx<br><strong>将nginx监听端口由80设置为82</strong></p>
+<p>-# vi  /var/opt/gitlab/nginx/conf/gitlab-http.conf</p>
+<p><img src="http://ol4zbr02e.bkt.clouddn.com/04nginx.png" alt="下午1.07.57"></p>
+<p>###三、 错误：GitLab: Failed to authorize your Git request: inte</p>
+<blockquote>
+<p>由于80端口被占用在修改改端口为82之后出现用户无法提交数据问题，自己提交的代码，系统竟然提示无权限进行访问内部api我也很无语啊！还好在外文网站stackworkflow上给出提示，实测完美解决，废话少说上文。</p>
+</blockquote>
+<p>出现这个错误是gitlab-shell配置信息错误引起的</p>
+<p>####a.打开目录<br>-# <strong>vi /var/opt/gitlab/gitlab-shell/config.yml</strong></p>
+<p><img src="http://ol4zbr02e.bkt.clouddn.com/05gitlabshell.png" alt="上午9.24.39"></p>
+<p>#####b.修改配置文件<br><strong>将默认的80端口修改为82即可</strong></p>
+<p><img src="http://ol4zbr02e.bkt.clouddn.com/06gitlabshellconfig.png" alt="上午9.22.50"></p>
+<p>以上修改只够对gitlab服务进行重启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gitlab-ctl restart</div></pre></td></tr></table></figure>
+<p><strong>注意这里不要使用gitlab-ctl reconfigure 会造成修改全部被重置</strong></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的支持和鼓励！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/17/Android混淆入门到精通/" class="archive-article-date">
-  	<time datetime="2017-01-17T07:39:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/17/Android混淆入门到精通/">Android混淆入门到精通</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/01/17/GitLab部署指南/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/17/GitLab部署指南/" class="archive-article-date">
-  	<time datetime="2017-01-17T07:39:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-17</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/17/开启新篇章/" class="archive-article-date">
-  	<time datetime="2017-01-17T07:39:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-17</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/17/开启新篇章/">新篇章</a>
-    </h1>
+    <a href="/2017/01/17/Android混淆入门到精通/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Android混淆入门到精通
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/17/开启新篇章/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">新篇章</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -267,8 +354,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
