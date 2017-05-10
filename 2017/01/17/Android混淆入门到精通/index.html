@@ -17,7 +17,7 @@
 <meta property="og:description" content="简介&amp;copy;李晓阳作为Android开发者，如果你不想开源你的应用，那么在应用发布前，就需要对代码进行混淆处理，从而让我们代码即使被反编译，也难以阅读。混淆概念虽然容易，但很多初学者也只是网上搜一些成型的混淆规则粘贴进自己项目，并没有对混淆有个深入的理解。本篇文章的目的就是让一个初学者在看完后，能在不进行任何帮助的情况下，独立写出适合自己代码的混淆规则。
 说在前面本文你可以点击喜欢 工作使用时">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/blogimage01.jpg">
-<meta property="og:updated_time" content="2017-05-10T07:06:11.000Z">
+<meta property="og:updated_time" content="2017-05-10T07:17:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android混淆入门到精通">
 <meta name="twitter:description" content="简介&amp;copy;李晓阳作为Android开发者，如果你不想开源你的应用，那么在应用发布前，就需要对代码进行混淆处理，从而让我们代码即使被反编译，也难以阅读。混淆概念虽然容易，但很多初学者也只是网上搜一些成型的混淆规则粘贴进自己项目，并没有对混淆有个深入的理解。本篇文章的目的就是让一个初学者在看完后，能在不进行任何帮助的情况下，独立写出适合自己代码的混淆规则。
@@ -233,7 +233,7 @@
 </tbody>
 </table>
 <p>移除是指在压缩(Shrinking)时是否会被删除。以上内容时混淆规则中需要重点掌握的，了解后，基本所有的混淆规则文件你应该都能看懂了。再配合以下几点注意事项，</p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1，jni方法不可混淆，因为这个方法需要和native方法保持一致；</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.jni方法不可混淆，因为这个方法需要和native方法保持一致；</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-keepclasseswithmembernames class * &#123; <span class="comment"># 保持native方法不被混淆</span></div><div class="line">native &lt;methods&gt;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>2，反射用到的类不混淆(否则反射可能出现问题)；</p>
 <p>3，AndroidMainfest中的类不混淆，所以四大组件和Application的子类和Framework层下所有的类默认不会进行混淆。自定义的View默认也不会被混淆；所以像网上贴的很多排除自定义View，或四大组件被混淆的规则在Android Studio中是无需加入的；</p>
@@ -340,11 +340,15 @@
   
 <nav id="article-nav">
   
-  
-    <a href="/2017/01/17/GitLab部署指南/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
-      <i class="icon-circle-right"></i>
+    <a href="/2017/01/17/GitLab部署指南/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
     </a>
+  
   
 </nav>
 
