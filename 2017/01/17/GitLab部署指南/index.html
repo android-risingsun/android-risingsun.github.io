@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/04nginx.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/05gitlabshell.png">
 <meta property="og:image" content="http://ol4zbr02e.bkt.clouddn.com/06gitlabshellconfig.png">
-<meta property="og:updated_time" content="2017-05-10T07:29:36.000Z">
+<meta property="og:updated_time" content="2017-05-10T07:32:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitLab问题解决文档">
 <meta name="twitter:description" content="Gitlab安装配置&amp;copy;李晓阳
@@ -217,8 +217,7 @@
 <p>出现这个错误是gitlab-shell配置信息错误引起的</p>
 <h4 id="a-打开目录"><a href="#a-打开目录" class="headerlink" title="a. 打开目录"></a>a. 打开目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**vi /var/opt/gitlab/gitlab-shell/config.yml**</div></pre></td></tr></table></figure>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/05gitlabshell.png" alt="上午9.24.39"></p>
-<p>#####b. 修改配置文件</p>
-<p><strong>将默认的80端口修改为82即可</strong></p>
+<h4 id="b-修改配置文件"><a href="#b-修改配置文件" class="headerlink" title="b. 修改配置文件"></a>b. 修改配置文件</h4><p><strong>将默认的80端口修改为82即可</strong></p>
 <p><img src="http://ol4zbr02e.bkt.clouddn.com/06gitlabshellconfig.png" alt="上午9.22.50"></p>
 <p>以上修改只够对gitlab服务进行重启</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gitlab-ctl restart</div></pre></td></tr></table></figure>
